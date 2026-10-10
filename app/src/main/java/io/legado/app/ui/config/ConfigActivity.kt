@@ -138,6 +138,8 @@ class ConfigActivity : VMBaseActivity<ViewBinding, ConfigViewModel>() {
             ConfigTag.NETWORK_DNS_CONFIG -> replaceFragment(configTag, NetworkDnsConfigFragment::class.java)
             ConfigTag.THEME_CONFIG -> replaceFragment(configTag, ThemeConfigFragment::class.java)
             ConfigTag.BACKUP_CONFIG -> replaceFragment(configTag, BackupConfigFragment::class.java)
+            ConfigTag.CLOUD_SYNC_CONFIG ->
+                replaceFragment(configTag, CloudSyncConfigFragment::class.java)
             ConfigTag.AI_CONFIG -> replaceFragment(configTag, AiConfigFragment::class.java)
             ConfigTag.COVER_CONFIG -> replaceFragment(configTag, CoverConfigFragment::class.java)
             ConfigTag.WELCOME_CONFIG -> replaceFragment(configTag, WelcomeConfigFragment::class.java)

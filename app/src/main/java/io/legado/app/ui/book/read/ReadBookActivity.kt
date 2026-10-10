@@ -109,6 +109,7 @@ import io.legado.app.help.readaloud.ReadAloudPlaybackState
 import io.legado.app.help.readaloud.ReadAloudProgressState
 import io.legado.app.help.source.getSourceType
 import io.legado.app.help.storage.Backup
+import io.legado.app.help.sync.CloudSyncManager
 import io.legado.app.lib.dialogs.AndroidAlertBuilder
 import io.legado.app.lib.dialogs.SelectItem
 import io.legado.app.lib.dialogs.alert
@@ -994,6 +995,8 @@ class ReadBookActivity : BaseReadBookActivity(),
                 ReadBook.uploadProgress()
             }
         }
+        //切后台/锁屏时把包括阅读进度在内的数据同步一次，换设备能接着看
+        CloudSyncManager.syncOnExit()
         justInitData = false
         networkChangedListener.unRegister()
     }

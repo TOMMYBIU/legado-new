@@ -37,6 +37,10 @@ cloudflare/**/.wrangler/
 /replay_pid*.log
 /temp*.txt
 
-# local build logs (Claude)
+# local build logs
 /rb*.log
 /release-build*.log
+/build-out.log
+/build-err.log
+/build-release.log
+/build-release-err.log

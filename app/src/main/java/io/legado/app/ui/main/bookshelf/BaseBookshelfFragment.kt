@@ -18,6 +18,7 @@ import io.legado.app.data.appDb
 import io.legado.app.data.entities.Book
 import io.legado.app.data.entities.BookGroup
 import io.legado.app.help.DirectLinkUpload
+import io.legado.app.help.book.BookCoverScraper
 import io.legado.app.help.book.BookTagHelper
 import io.legado.app.help.config.AppConfig
 import io.legado.app.ui.about.AppLogDialog
@@ -164,7 +165,30 @@ abstract class BaseBookshelfFragment(layoutId: Int) : VMBaseFragment<BookshelfVi
 
             R.id.menu_import_bookshelf -> importBookshelfAlert(groupId)
             R.id.menu_log -> showDialogFragment<AppLogDialog>()
+            R.id.menu_scrape_cover -> scrapeCovers()
         }
+    }
+
+    /**
+     * 批量刮削封面：只处理"没有真实封面"的本地书，不覆盖用户已设置过的封面
+     */
+    private fun scrapeCovers() {
+        val waitDialog = WaitDialog(requireContext())
+        waitDialog.setText(R.string.scrape_cover)
+        waitDialog.show()
+        val job = lifecycleScope.launch {
+            val result = BookCoverScraper.scrape(onlyLocal = true) { done, total, name ->
+                activity?.runOnUiThread {
+                    waitDialog.setText("$done/$total  $name")
+                }
+            }
+            waitDialog.dismiss()
+            toastOnUi(
+                "刮削完成：成功 ${result.scraped}，未找到 ${result.failed}，跳过 ${result.skipped}"
+            )
+            postEvent(EventBus.BOOKSHELF_REFRESH, "")
+        }
+        waitDialog.setOnCancelListener { job.cancel() }
     }
 
     protected open fun showBookTagManageAlert() {

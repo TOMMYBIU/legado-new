@@ -1,0 +1,22 @@
+# NAS 上运行同步服务（免构建，直接用官方 node 镜像）
+#
+#   cd server
+#   docker compose up -d
+#
+# 首次启动前请先把 config.example.json 复制成 config.json，
+# 并生成自签证书：bash deploy/gen-cert.sh
+services:
+  legado-sync:
+    image: node:20-alpine
+    container_name: legado-sync
+    restart: unless-stopped
+    working_dir: /app
+    command: node server.js
+    # 只绑定本机回环地址：公网入口交给 frpc，不要让 8765 直接对外
+    ports:
+      - "127.0.0.1:8765:8765"
+    volumes:
+      # config.json / certs / data 都在这个目录里，随宿主机持久化
+      - ./:/app
+    environment:
+      - TZ=Asia/Shanghai

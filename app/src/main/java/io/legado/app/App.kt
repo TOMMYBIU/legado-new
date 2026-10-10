@@ -55,6 +55,7 @@ import io.legado.app.help.source.SourceHelp
 import io.legado.app.help.storage.Backup
 import io.legado.app.help.storage.ReaderDataRepair
 import io.legado.app.help.storage.RestoreJournal
+import io.legado.app.help.sync.CloudSyncManager
 import io.legado.app.model.BookCover
 import io.legado.app.service.AutoTaskService
 import io.legado.app.utils.ChineseUtils
@@ -149,6 +150,8 @@ class App : Application() {
                 AppCloudStorage.downloadAllBookProgress()
             }
             AutoTaskService.restoreSchedule(appCtx)
+            //启动时自动同步（需在设置中开启且已登录）
+            CloudSyncManager.autoSyncOnStart()
         }
     }
 

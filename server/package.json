@@ -1,0 +1,15 @@
+{
+  "name": "legado-sync-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "阅读 Archive 联网同步的轻量服务端（零依赖）",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js"
+  },
+  "license": "GPL-3.0"
+}

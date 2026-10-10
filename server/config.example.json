@@ -1,0 +1,18 @@
+{
+  "host": "0.0.0.0",
+  "port": 8765,
+  "dataDir": "./data",
+  "secret": "",
+  "tokenTtlDays": 30,
+  "allowRegister": true,
+  "maxSnapshotBytes": 67108864,
+  "historyKeep": 3,
+  "tlsCert": "",
+  "tlsKey": "",
+  "namespaces": [
+    "sources",
+    "shelf",
+    "settings",
+    "bookmarks"
+  ]
+}
