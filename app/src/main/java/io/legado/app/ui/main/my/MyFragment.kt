@@ -332,6 +332,10 @@ class MyFragment() : BaseFragment(R.layout.fragment_my_config),
                 putExtra("configTag", ConfigTag.BACKUP_CONFIG)
             }
 
+            "cloud_sync" -> startActivity<ConfigActivity> {
+                putExtra("configTag", ConfigTag.CLOUD_SYNC_CONFIG)
+            }
+
             "publicWebRelay" -> startActivity<RelaySettingsActivity>()
 
             "cacheManage" -> startActivity<CacheManageActivity>()
@@ -386,6 +390,7 @@ class MyFragment() : BaseFragment(R.layout.fragment_my_config),
                 title = getString(R.string.config_category_sync),
                 rows = listOf(
                     actionRow("web_dav_setting", R.string.backup_restore, R.string.web_dav_set_import_old),
+                    actionRow("cloud_sync", R.string.cloud_sync, R.string.cloud_sync_summary),
                     actionRow("cacheManage", R.string.cache_manage_title, R.string.cache_manage_summary),
                     actionRow(
                         "publicWebRelay",

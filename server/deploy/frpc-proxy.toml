@@ -1,0 +1,23 @@
+# 在 NAS 上现有的 frpc 配置里追加这一段（frp 0.52+ 使用 TOML）
+#
+# 作用：云服务器 8443 端口 → NAS 上的 127.0.0.1:8765
+# 注意：8443 是公网入口（TLS 由本服务自己终结），按需改成你未被占用的端口。
+
+[[proxies]]
+name = "legado-sync"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 8765
+remotePort = 8443
+
+# ---------------------------------------------------------------
+# 如果你的 frp 还是旧版（≤ 0.51，ini 格式），等价的配置是：
+#
+# [legado-sync]
+# type = tcp
+# local_ip = 127.0.0.1
+# local_port = 8765
+# remote_port = 8443
+#
+# 改完记得重启 frpc：systemctl restart frpc   （或 docker restart frpc）
+# 同时确认云服务器 frps 的 allowPorts 允许 8443，并且安全组放行了 8443/TCP。

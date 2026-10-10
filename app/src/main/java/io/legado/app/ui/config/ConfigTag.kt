@@ -6,6 +6,7 @@ object ConfigTag {
     const val NETWORK_DNS_CONFIG = "networkDnsConfig"
     const val THEME_CONFIG = "themeConfig"
     const val BACKUP_CONFIG = "backupConfig"
+    const val CLOUD_SYNC_CONFIG = "cloudSyncConfig"
     const val AI_CONFIG = "aiConfig"
     const val COVER_CONFIG = "coverConfig"
     const val WELCOME_CONFIG = "welcomeConfig"

@@ -21,6 +21,7 @@ import io.legado.app.exception.NoBooksDirException
 import io.legado.app.exception.NoStackTraceException
 import io.legado.app.help.AppWebDav
 import io.legado.app.help.book.addType
+import io.legado.app.help.book.BookCoverScraper
 import io.legado.app.help.book.BookHelp
 import io.legado.app.help.book.getExportFileName
 import io.legado.app.help.book.getRemoteUrl
@@ -203,7 +204,9 @@ class BookInfoViewModel(application: Application) : BaseViewModel(application) {
 
     private fun upCoverByRule(book: Book) {
         execute {
-            if (book.coverUrl.isNullOrBlank() && book.customCoverUrl.isNullOrBlank()) {
+            // 注意：不能用"coverUrl 是否为空"判断，备份恢复/同步会给本地书写入一个约定路径，
+            // 那个图片文件并不存在，会导致永远不刮封面
+            if (!BookCoverScraper.hasRealCover(book)) {
                 val coverUrl = BookCover.searchCover(book)
                 if (coverUrl.isNullOrBlank()) {
                     return@execute

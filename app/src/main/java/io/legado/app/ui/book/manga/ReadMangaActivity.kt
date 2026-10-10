@@ -36,6 +36,7 @@ import io.legado.app.help.book.isImage
 import io.legado.app.help.book.removeType
 import io.legado.app.help.config.AppConfig
 import io.legado.app.help.storage.Backup
+import io.legado.app.help.sync.CloudSyncManager
 import io.legado.app.lib.dialogs.alert
 import io.legado.app.lib.dialogs.selector
 import io.legado.app.model.ReadManga
@@ -437,6 +438,8 @@ class ReadMangaActivity : VMBaseActivity<ActivityMangaBinding, ReadMangaViewMode
             }
         }
         ReadManga.cancelPreDownloadTask()
+        //切后台/锁屏时把包括阅读进度在内的数据同步一次，换设备能接着看
+        CloudSyncManager.syncOnExit()
         networkChangedListener.unRegister()
         mScrollTimer.isEnabledPage = false
         mScrollTimer.isEnabled = false
