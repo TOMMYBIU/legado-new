@@ -98,10 +98,16 @@ class ServerConfigDialog() : ComposeDialogFragment() {
 
     private fun buildServer(name: String, url: String, username: String, password: String): Server {
         val server = viewModel.mServer?.copy() ?: Server()
-        server.name = name
+        server.name = name.trim()
         server.type = Server.TYPE.WEBDAV
         server.config = GSON.toJson(
-            hashMapOf("url" to url, "username" to username, "password" to password)
+            hashMapOf(
+                // 粘贴地址时常带首尾空白或换行，必须清理，否则 WebDAV 请求会失败
+                "url" to url.trim(),
+                "username" to username.trim(),
+                // 密码可能包含空格，不做 trim
+                "password" to password
+            )
         )
         return server
     }

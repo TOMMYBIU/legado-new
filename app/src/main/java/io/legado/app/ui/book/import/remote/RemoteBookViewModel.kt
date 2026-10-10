@@ -100,7 +100,8 @@ class RemoteBookViewModel(application: Application) : BaseViewModel(application)
             isDefaultWebdav = false
             appDb.serverDao.get(AppConfig.remoteServerId)?.getWebDavConfig()?.let {
                 val authorization = Authorization(it)
-                remoteBookWebDav = RemoteBookWebDav(it.url, authorization, AppConfig.remoteServerId)
+                // trim 兼容历史数据：早期保存地址时未去空白，末尾的换行/空格会导致请求失败
+                remoteBookWebDav = RemoteBookWebDav(it.url.trim(), authorization, AppConfig.remoteServerId)
                 return@execute
             }
             isDefaultWebdav = true
